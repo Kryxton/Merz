@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$Friedrich - The Merz Memecoin</title>
+  <style>
+    /* Reset & Basic Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #d4af37; /* Luxuriöses Gold */
+      line-height: 1.6;
+      padding: 20px;
+    }
+    /* Language Toggle */
+    .language-toggle {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .language-toggle button {
+      padding: 8px 16px;
+      margin: 0 10px;
+      border: none;
+      background: linear-gradient(90deg, #d4af37, #d1001c);
+      color: #000;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .language-toggle button:hover {
+      background: linear-gradient(90deg, #b8860b, #a30016);
+    }
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: 2.5em;
+      color: #d4af37;
+      text-shadow: 2px 2px 4px #d1001c;
+      animation: fadeIn 1s ease-out;
+    }
+    header p {
+      font-size: 1.2em;
+      color: #d4af37;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Banner Container */
+    .banner {
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+    .banner img {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+    }
+    /* Card Containers */
+    .card {
+      background: #1a1a1a;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(212, 175, 55, 0.5);
+      border: 1px solid #d4af37;
+      max-width: 600px;
+      margin: 0 auto 20px;
+    }
+    .card h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #d4af37;
+    }
+    /* Countdown Section */
+    .countdown #timer {
+      font-size: 1.5em;
+      text-align: center;
+      margin-top: 10px;
+    }
+    /* Contract Address Section */
+    .ca-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .ca-container span {
+      font-weight: bold;
+      margin-right: 10px;
+      word-break: break-all;
+    }
+    .ca-container button {
+      padding: 8px 12px;
+      border: none;
+      background: #d1001c;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .ca-container button:hover {
+      background: #a30016;
+    }
+    /* Social Links Section */
+    .socials ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+      padding: 0;
+    }
+    .socials li a {
+      text-decoration: none;
+      background: linear-gradient(90deg, #d4af37, #d1001c);
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 4px;
+      transition: transform 0.2s ease-in-out, background 0.3s;
+      width: 100%;
+      text-align: center;
+      display: block;
+    }
+    .socials li a:hover {
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #b8860b, #a30016);
+    }
+    /* Info Text Section */
+    .info {
+      text-align: center;
+      font-size: 1.1em;
+      line-height: 1.5;
+    }
+    /* Token Price & Polymarket Sections */
+    .token-price p,
+    .polymarket p {
+      text-align: center;
+      font-size: 1.1em;
+    }
+    .polymarket a {
+      text-decoration: none;
+      color: #d4af37;
+      font-weight: bold;
+    }
+    /* New: Gold Button for Polymarket Link */
+    .gold-button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px 0;
+      background: linear-gradient(90deg, #d4af37, #d1001c);
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .gold-button:hover {
+      background: linear-gradient(90deg, #b8860b, #a30016);
+      transform: scale(1.05);
+    }
+    /* Memes & Media Section */
+    .meme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .meme-item img,
+    .meme-item video {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      display: block;
+    }
+    /* Background Music Button */
+    .music-button {
+      display: block;
+      margin: 0 auto 20px;
+      padding: 10px 20px;
+      border: none;
+      background: linear-gradient(90deg, #d4af37, #d1001c);
+      color: #000;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+      text-align: center;
+    }
+    .music-button:hover {
+      background: linear-gradient(90deg, #b8860b, #a30016);
+    }
+    /* Responsive Adjustments */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2em;
+      }
+      .socials ul {
+        flex-direction: column;
+      }
+    }
+
+    .chart-container iframe {
+      width: 100%; /* Make the chart take full width */
+      height: 600px; /* Increase chart height */
+    }
+  </style>
+</head>
+<body>
+  <!-- Language Toggle -->
+  <div class="language-toggle">
+    <button onclick="setLanguage('de')">Deutsch</button>
+    <button onclick="setLanguage('en')">English</button>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1 id="headerTitle">$Friedrich</h1>
+    <p id="headerSubtitle">The memecoin of Friedrich Merz – riding the wave of CDU clout!</p>
+  </header>
+
+  <!-- Banner Image Container -->
+  <section class="banner">
+    <img src="merz-banner.jpeg" alt="$Friedrich Banner">
+  </section>
+
+  <!-- Countdown Section -->
+  <section class="card countdown">
+    <h2 id="countdownTitle">Countdown to German Election</h2>
+    <div id="timer">Loading...</div>
+  </section>
+
+  <!-- Contract Address Section -->
+  <section class="card" id="contract">
+    <h2 id="contractTitle">Contract Address</h2>
+    <div class="ca-container">
+      <span id="contract-address">HSd8XaFMnpQQhhDNe4Rq8bvQnbCKDvXbAZTnHgKupump</span>
+      <button id="copyButton">Copy</button>
+    </div>
+  </section>
+
+  <!-- Social Links Section -->
+  <section class="card socials">
+    <h2 id="socialsTitle">Join the Movement</h2>
+    <ul>
+      <li><a href="https://t.me/friedrichmerzz" target="_blank">Telegram</a></li>
+      <li><a href="https://x.com/friedrichonsol?s=21" target="_blank">Twitter ($Friedrich)</a></li>
+      <li><a href="https://x.com/cdu?s=21" target="_blank">Twitter (CDU)</a></li>
+      <li><a href="https://x.com/_friedrichmerz?s=21" target="_blank">Twitter (Friedrich Merz)</a></li>
+      <li><a href="https://pump.fun/coin/HSd8XaFMnpQQhhDNe4Rq8bvQnbCKDvXbAZTnHgKupump?coins_sort=market_cap" target="_blank">Pumpfun</a></li>
+      <li><a href="https://dexscreener.com/solana/35ukaFRYGFfeFxNQLLPs1hw1ftQaJJUSB7BbmaQAzpK5" target="_blank">Dexscreener</a></li>
+    </ul>
+  </section>
+
+  <!-- Info Text Section -->
+  <section class="card info">
+    <p id="infoText">
+      $FRIEDRICH Merz is Chancellor Candidate of the CDU, the most polled party in german politics.<br>
+      According to Polymarket, Merz will become the new Chancellor with a 91% chance on the 23th February 2025.<br>
+      Elon Musk is pro Alice Weidel, so $FRIEDRICH Merz will not go uncommented.<br>
+      The favorite of the mainstream media.
+    </p>
+  </section>
+  
+  <!-- Background Music Button -->
+  <button class="music-button" onclick="playanthem()" id="musicButton">National Anthem</button>
+  <audio id="anthem" src="anthem.mov"></audio>
+
+  <!-- Polymarket Prognose Section -->
+  <section class="card polymarket">
+    <h2 id="polymarketTitle">Polymarket Forecast</h2>
+    <p id="polymarketText">To <strong>91%</strong> Friedrich Merz becomes chancellor</p>
+    <p>
+      <button class="gold-button" onclick="window.open('https://polymarket.com/event/next-chancellor-of-germany?tid=1739270052235','_blank')">
+        Polymarket
+      </button>
+    </p>
+  </section>
+
+  <!-- Chart Section -->
+  <section class="card chart">
+    <h2 id="chartTitle">Chart</h2>
+    <div class="chart-container">
+      <iframe 
+        width="100%" 
+        height="600" 
+        src="https://birdeye.so/tv-widget/HSd8XaFMnpQQhhDNe4Rq8bvQnbCKDvXbAZTnHgKupump?chain=solana&viewMode=pair&chartInterval=15&chartType=Candle&chartTimezone=Europe%2FBerlin&chartLeftToolbar=show&theme=dark&cssCustomProperties=--tv-color-platform-background%3A%23000000&cssCustomProperties=--tv-color-pane-background%3A%23000000&chartOverrides=paneProperties.backgroundGradientStartColor%3Argba%280%2C+0%2C+0%2C+1%29&chartOverrides=paneProperties.backgroundGradientEndColor%3Argba%280%2C+0%2C+0%2C+1%29&chartOverrides=mainSeriesProperties.candleStyle.downColor%3A%23fb0015&chartOverrides=mainSeriesProperties.candleStyle.borderDownColor%3A%23ff0015&chartOverrides=mainSeriesProperties.candleStyle.wickDownColor%3A%23ff0000&chartOverrides=mainSeriesProperties.candleStyle.upColor%3A%23936f13&chartOverrides=mainSeriesProperties.candleStyle.borderUpColor%3A%23936f13&chartOverrides=mainSeriesProperties.candleStyle.wickUpColor%3A%23936f13" 
+        frameborder="0" 
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- Memes & Media Section -->
+  <section class="card memes">
+    <h2 id="memesTitle">Memes & Media</h2>
+    <div class="meme-grid">
+      <div class="meme-item">
+        <img src="merz1.jpeg" alt="Meme 1">
+      </div>
+      <div class="meme-item">
+        <img src="merz2.jpeg" alt="Meme 2">
+      </div>
+      <div class="meme-item">
+        <img src="merz3.jpeg" alt="Meme 3">
+      </div>
+      <div class="meme-item">
+        <img src="merz4.jpeg" alt="Meme 4">
+      </div>
+      <div class="meme-item">
+        <img src="merz5.jpeg" alt="Meme 5">
+      </div>
+      <div class="meme-item">
+        <img src="merz6.jpeg" alt="Meme 6">
+      </div>
+      <div class="meme-item">
+        <video controls>
+          <source src="merz1.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="meme-item">
+        <video controls>
+          <source src="merz2.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="meme-item">
+        <video controls>
+          <source src="merz3.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="meme-item">
+        <video controls>
+          <source src="merz4.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="meme-item">
+        <video controls>
+          <source src="merz5.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="meme-item">
+        <video controls>
+          <source src="merz6.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Global variable for the current language
+    var currentLang = 'en';
+    var translations = {
+      en: {
+        pageTitle: "$Friedrich - The Merz Memecoin",
+        headerTitle: "$Friedrich",
+        headerSubtitle: "The memecoin of Friedrich Merz – riding the wave of CDU clout!",
+        countdownTitle: "Countdown to German Election",
+        contractTitle: "Contract Address",
+        copyButton: "Copy",
+        copyAlert: "Contract address copied to clipboard!",
+        copyAlertError: "Failed to copy: ",
+        socialsTitle: "Join the Movement",
+        infoText: "$FRIEDRICH Merz is Chancellor Candidate of the CDU, the most polled party in german politics.<br>According to Polymarket, Merz will become the new Chancellor with a 91% chance on the 23th February 2025.<br>Elon Musk is pro Alice Weidel, so $FRIEDRICH Merz will not go uncommented.<br>The favorite of the mainstream media.",
+        priceTitle: "$Friedrich Price",
+        polymarketTitle: "Polymarket Forecast",
+        polymarketText: "To <strong>91%</strong> Friedrich Merz becomes chancellor",
+        memesTitle: "Memes & Media",
+        musicButton: "National Anthem",
+        chartTitle: "Chart"
+      },
+      de: {
+        pageTitle: "$Friedrich - Der Merz Memecoin",
+        headerTitle: "$Friedrich",
+        headerSubtitle: "Der Memecoin von Friedrich Merz – getragen von der Kraft der CDU!",
+        countdownTitle: "Countdown zur Bundestagswahl",
+        contractTitle: "Adresse",
+        copyButton: "Kopieren",
+        copyAlert: "Adresse in die Zwischenablage kopiert!",
+        copyAlertError: "Kopieren fehlgeschlagen: ",
+        socialsTitle: "Schließe dich der Bewegung an",
+        infoText: "$FRIEDRICH Merz ist Kanzlerkandidat der CDU, der umfragestärksten Partei in der deutschen Politik.<br>Laut Polymarket wird Merz mit einer Wahrscheinlichkeit von 91% am 23. Februar 2025 neuer Bundeskanzler.<br>Elon Musk ist für Alice Weidel, also wird $FRIEDRICH Merz nicht unkommentiert bleiben.<br>Der Liebling der Mainstream-Medien.",
+        priceTitle: "$Friedrich Preis",
+        polymarketTitle: "Polymarket Prognose",
+        polymarketText: "Zu <strong>91%</strong> wird Friedrich Merz Kanzler",
+        memesTitle: "Memes & Medien",
+        musicButton: "Nationalhymne",
+        chartTitle: "Chart"
+      }
+    };
+
+    function updateTexts() {
+      document.title = translations[currentLang].pageTitle;
+      document.getElementById("headerTitle").innerText = translations[currentLang].headerTitle;
+      document.getElementById("headerSubtitle").innerText = translations[currentLang].headerSubtitle;
+      document.getElementById("countdownTitle").innerText = translations[currentLang].countdownTitle;
+      document.getElementById("contractTitle").innerText = translations[currentLang].contractTitle;
+      document.getElementById("copyButton").innerText = translations[currentLang].copyButton;
+      document.getElementById("socialsTitle").innerText = translations[currentLang].socialsTitle;
+      document.getElementById("infoText").innerHTML = translations[currentLang].infoText;
+      // Only update priceTitle if the element exists
+      if (document.getElementById("priceTitle")) {
+        document.getElementById("priceTitle").innerText = translations[currentLang].priceTitle;
+      }
+      document.getElementById("polymarketTitle").innerText = translations[currentLang].polymarketTitle;
+      if (document.getElementById("polymarketText")) {
+        document.getElementById("polymarketText").innerHTML = translations[currentLang].polymarketText;
+      }
+      document.getElementById("memesTitle").innerText = translations[currentLang].memesTitle;
+      document.getElementById("musicButton").innerText = translations[currentLang].musicButton;
+      document.getElementById("chartTitle").innerText = translations[currentLang].chartTitle;
+    }
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      updateTexts();
+    }
+
+    updateTexts();
+
+    // Fallback copy function for older browsers
+    function fallbackCopyTextToClipboard(text) {
+      var textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.top = "0";
+      textArea.style.left = "0";
+      textArea.style.position = "fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        var successful = document.execCommand('copy');
+        if (successful) {
+          alert(translations[currentLang].copyAlert);
+        } else {
+          alert(translations[currentLang].copyAlertError);
+        }
+      } catch (err) {
+        alert(translations[currentLang].copyAlertError + err);
+      }
+      document.body.removeChild(textArea);
+    }
+
+    // Copy Contract Address functionality
+    document.getElementById('copyButton').addEventListener('click', function () {
+      const address = document.getElementById('contract-address').textContent;
+      if (!navigator.clipboard) {
+        fallbackCopyTextToClipboard(address);
+        return;
+      }
+      navigator.clipboard.writeText(address).then(() => {
+        alert(translations[currentLang].copyAlert);
+      }).catch(err => {
+        alert(translations[currentLang].copyAlertError + err);
+      });
+    });
+
+    // Countdown Timer functionality
+    function getElectionDate() {
+      // Target Date: Sunday, 23rd February 2025
+      return new Date(2025, 1, 23);
+    }
+
+    function updateCountdown() {
+      const electionDate = getElectionDate().getTime();
+      const now = new Date().getTime();
+      const distance = electionDate - now;
+
+      if (distance < 0) {
+        document.getElementById('timer').innerHTML = "The election has taken place!";
+        clearInterval(countdownInterval);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('timer').innerHTML =
+        days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+    }
+
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Background music functionality (toggle play/pause)
+    function playanthem() {
+      var anthem = document.getElementById('anthem');
+      if (anthem.paused) {
+        anthem.play();
+      } else {
+        anthem.pause();
+      }
+    }
+  </script>
+</body>
+</html>
